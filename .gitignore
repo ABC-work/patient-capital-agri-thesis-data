@@ -1,0 +1,17 @@
+# Local downloads and extraction work
+work/
+extracted/
+originals/
+*.zip
+*.tar.gz
+
+# Python and editor artifacts
+__pycache__/
+*.py[cod]
+.DS_Store
+.idea/
+.vscode/
+
+# Year-specific intermediate evidence tables are reproducible from the consolidated table
+outputs/年报主营业务与收入页定位_20??_v1.csv
+outputs/年报主营业务与收入页定位_待人工补核_v1.csv

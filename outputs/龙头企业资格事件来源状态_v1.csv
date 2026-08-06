@@ -1,0 +1,13 @@
+event_year,event_type,document_number,official_count,company_level_source_status,usable_for_final_leading_firm_it,official_source_url,local_filename,notes
+2011,recognition,农经发〔2011〕12号,359,官方信息公开目录已确认文件元数据但尚未取得官方企业级附件,否,https://www.moa.gov.cn/gk/zfxxgkzl/ndbg/201712/P020171221550544871864.pdf,,目录记载公开日期为2012-02-27；第三方转载名单只能作为检索线索
+2013,opening_stock,,,缺少能够覆盖2013年初全部存量资格的官方企业级基准名单,否,,,不得用2014年第六次监测合格名单向前反推
+2014,monitor_pass,农经发〔2014〕9号,1191,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2014/shi/201712/P020180104776701107212.pdf,2014_monitor6.pdf,只能确认监测时点继续保留资格；不是首次认定日
+2016,replacement,农经发〔2016〕13号,111,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2016/shiyiqi/201712/P020180624662692968052.pdf,2016_monitor7_replacement.pdf,从文件生效日取得资格
+2016,monitor_pass,农经发〔2016〕15号,1131,官方公报仅载明数量且附件标注略,否,https://www.moa.gov.cn/nybgb/2016/shiyiqi/201712/P020180624662692968052.pdf,2016_monitor7_replacement.pdf,不得由2014与2018名单交并差反推
+2018,monitor_pass,农产发〔2018〕1号,1095,官方企业级名单已取得并结构化,是,https://xccys.moa.gov.cn/gzdt/201812/t20181205_6314544.htm,2018_monitor8.pdf,保留原始星号更名标记
+2019,recognition,农产发〔2019〕3号,299,官方公报企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2019/201912/202004/P020200410023357640054.pdf,2019_batch6.pdf,有效期到2022年监测结果公布前
+2020,replacement,农产发〔2020〕8号,128,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2020/202012/202102/P020210201587636946140.pdf,2020_monitor9.pdf,从文件生效日取得资格
+2020,monitor_pass,农产发〔2020〕6号,1120,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2020/202012/202102/P020210201587636946140.pdf,2020_monitor9.pdf,只能确认监测时点继续保留资格
+2021,recognition,农产发〔2021〕4号,412,官方网页与官方PDF逐项顺序一致且已结构化,是,https://xccys.moa.gov.cn/gzdt/202201/t20220113_6386872.htm,2021_batch7.pdf,文件落款2021-12-22；网页公开2022-01-13；有效期到2024年监测结果公布前
+2023,monitor_pass,农产发〔2023〕3号,1429,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2023/202306/202307/P020230719348171286633.pdf,2023_monitor10.pdf,有效期到下一次监测结果公布前
+2023,replacement,农产发〔2023〕3号,112,官方PDF企业级名单已取得并结构化,是,https://www.moa.gov.cn/nybgb/2023/202306/202307/P020230719348171286633.pdf,2023_monitor10.pdf,从文件生效日取得资格
