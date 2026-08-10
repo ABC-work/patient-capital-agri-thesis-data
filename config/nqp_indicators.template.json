@@ -1,0 +1,17 @@
+{
+  "id_columns": ["stock_code", "year"],
+  "winsor_limits": [0.01, 0.99],
+  "missing_policy": "complete_within_dimension",
+  "dimension_equal_weight": true,
+  "epsilon": 1e-12,
+  "indicators": [
+    {"column": "NQP_edu", "dimension": "劳动者", "direction": "positive"},
+    {"column": "NQP_techstaff", "dimension": "劳动者", "direction": "positive"},
+    {"column": "NQP_capital_worker", "dimension": "劳动资料", "direction": "positive"},
+    {"column": "NQP_capex", "dimension": "劳动资料", "direction": "positive"},
+    {"column": "NQP_intangible", "dimension": "劳动对象", "direction": "positive"},
+    {"column": "NQP_rdint", "dimension": "劳动对象", "direction": "positive"},
+    {"column": "NQP_invpat", "dimension": "科技创新", "direction": "positive"},
+    {"column": "NQP_invshare", "dimension": "科技创新", "direction": "positive"}
+  ]
+}
