@@ -1,0 +1,20 @@
+{
+  "column_map": {
+    "股票代码": "stock_code",
+    "截止日期": "end_date",
+    "统计日期": "stat_date",
+    "信息来源": "info_source",
+    "保险公司持股比例_总股本": "insurance_hold_pct_total",
+    "社保基金持股比例_总股本": "social_security_hold_pct_total",
+    "企业年金持股比例_总股本": "enterprise_annuity_hold_pct_total",
+    "保险公司持股比例_A股": "insurance_hold_pct_a",
+    "社保基金持股比例_A股": "social_security_hold_pct_a",
+    "企业年金持股比例_A股": "enterprise_annuity_hold_pct_a",
+    "保险公司持股比例_无限售A股": "insurance_hold_pct_unrestricted_a",
+    "社保基金持股比例_无限售A股": "social_security_hold_pct_unrestricted_a",
+    "企业年金持股比例_无限售A股": "enterprise_annuity_hold_pct_unrestricted_a"
+  },
+  "ratio_unit": "REPLACE_WITH_percent_OR_fraction",
+  "missing_component_policy": "propagate",
+  "duplicate_policy": "latest_stat_date"
+}

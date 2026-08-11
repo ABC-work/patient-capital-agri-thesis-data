@@ -1,0 +1,45 @@
+{
+  "expected": {
+    "start_date": "2012-12-31",
+    "end_date": "2023-12-31",
+    "annual_month_day": "12-31"
+  },
+  "tables": {
+    "balance_sheet": {
+      "sheet_name": 0,
+      "delimiter": null,
+      "fields": {
+        "stock_code": "需在页面确认后填写资产负债表中的证券代码列名",
+        "accounting_period": "需在页面确认后填写资产负债表中的会计期间列名",
+        "company_name": "需在页面确认后填写；没有则留空",
+        "report_type": "需在页面确认后填写；没有则留空",
+        "statement_scope": "需在页面确认后填写；没有则留空",
+        "unit": "需在页面确认后填写；没有则留空"
+      }
+    },
+    "income_statement": {
+      "sheet_name": 0,
+      "delimiter": null,
+      "fields": {
+        "stock_code": "需在页面确认后填写利润表中的证券代码列名",
+        "accounting_period": "需在页面确认后填写利润表中的会计期间列名",
+        "company_name": "需在页面确认后填写；没有则留空",
+        "report_type": "需在页面确认后填写；没有则留空",
+        "statement_scope": "需在页面确认后填写；没有则留空",
+        "unit": "需在页面确认后填写；没有则留空"
+      }
+    },
+    "cashflow_statement": {
+      "sheet_name": 0,
+      "delimiter": null,
+      "fields": {
+        "stock_code": "需在页面确认后填写现金流量表中的证券代码列名",
+        "accounting_period": "需在页面确认后填写现金流量表中的会计期间列名",
+        "company_name": "需在页面确认后填写；没有则留空",
+        "report_type": "需在页面确认后填写；没有则留空",
+        "statement_scope": "需在页面确认后填写；没有则留空",
+        "unit": "需在页面确认后填写；没有则留空"
+      }
+    }
+  }
+}
