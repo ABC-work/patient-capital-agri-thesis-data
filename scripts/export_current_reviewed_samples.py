@@ -6,7 +6,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "outputs" / "涉农候选公司年份_年报主营业务复核工作表_v15_跨年快速复核第五批.csv"
+SOURCE = ROOT / "outputs" / "涉农候选公司年份_年报主营业务复核工作表_v16_跨年快速复核第六批.csv"
 OUT = ROOT / "outputs"
 KEEP = [
     "股票代码", "公司全称", "年份", "行业分类代码", "行业分类名称", "入口依据",
