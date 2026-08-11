@@ -2,6 +2,8 @@
 work/
 extracted/
 originals/
+commercial_data/
+raw_commercial_data/
 *.zip
 *.tar.gz
 
