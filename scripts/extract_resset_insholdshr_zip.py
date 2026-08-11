@@ -109,13 +109,16 @@ def main():
     out["stock_code"] = out["stock_code"].astype("string").str.zfill(6)
     out["end_date"] = pd.to_datetime(out["end_date"], errors="raise")
     out["stat_date"] = pd.to_datetime(out["stat_date"], errors="raise")
+    out["update_date"] = pd.to_datetime(out["update_date"], errors="raise")
+    out["resset_row_id"] = pd.to_numeric(out["resset_row_id"], errors="raise")
     out["year"] = out["end_date"].dt.year
 
     key = ["stock_code", "year"]
     duplicate_rows = int(out.duplicated(key, keep=False).sum())
     if args.duplicate_policy == "latest_stat_date":
-        out = out.sort_values([*key, "stat_date", "resset_row_id"]).drop_duplicates(key, keep="last")
-    out = out.sort_values([*key, "stat_date", "resset_row_id"])
+        version_order = [*key, "stat_date", "update_date", "resset_row_id"]
+        out = out.sort_values(version_order).drop_duplicates(key, keep="last")
+    out = out.sort_values([*key, "stat_date", "update_date", "resset_row_id"])
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(args.output_csv, index=False, encoding="utf-8-sig")
     print(f"source_rows={len(rows)}; output_rows={len(out)}; duplicate_source_rows={duplicate_rows}")
