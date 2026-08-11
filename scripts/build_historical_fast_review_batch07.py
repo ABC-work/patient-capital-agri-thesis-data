@@ -92,7 +92,7 @@ def main() -> None:
         else:
             reason = (
                 f"直接畜牧养殖收入占{strict_share * 100:.2f}%，未达50%；"
-                f"加入同一分行业维度的农产品初加工收入后占{expanded_share * 100:.2f}%，纳入扩展样本。"
+                f"加入{dimension}的农产品初加工收入后占{expanded_share * 100:.2f}%，纳入扩展样本。"
             )
 
         rows.append({
