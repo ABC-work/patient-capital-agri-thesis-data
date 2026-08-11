@@ -132,6 +132,10 @@ def main():
         if "resset_row_id" in df:
             df["resset_row_id"] = pd.to_numeric(df["resset_row_id"], errors="raise")
             version_order.append("resset_row_id")
+        if same_day_duplicate.any():
+            tie_break = df.loc[same_day_duplicate, ["update_date", "resset_row_id"]]
+            if tie_break.isna().any(axis=1).any():
+                raise ValueError("同日重复版本的update_date或resset_row_id为空，禁止按空值排序择新")
         df = df.sort_values(version_order).drop_duplicates(key, keep="last")
 
     structural_flags = []
