@@ -122,7 +122,17 @@ def main():
         if cfg.get("duplicate_policy") != "latest_stat_date" or "stat_date" not in df:
             raise ValueError("公司—年份存在重复；须保留stat_date并明确版本规则")
         df["stat_date"] = pd.to_datetime(df["stat_date"], errors="raise")
-        df = df.sort_values("stat_date").drop_duplicates(key, keep="last")
+        same_day_duplicate = df.duplicated([*key, "stat_date"], keep=False)
+        if same_day_duplicate.any() and not {"update_date", "resset_row_id"}.issubset(df.columns):
+            raise ValueError("同一公司—年份—统计日期存在重复；须保留update_date和resset_row_id择新")
+        version_order = [*key, "stat_date"]
+        if "update_date" in df:
+            df["update_date"] = pd.to_datetime(df["update_date"], errors="raise")
+            version_order.append("update_date")
+        if "resset_row_id" in df:
+            df["resset_row_id"] = pd.to_numeric(df["resset_row_id"], errors="raise")
+            version_order.append("resset_row_id")
+        df = df.sort_values(version_order).drop_duplicates(key, keep="last")
 
     structural_flags = []
     if missing_policy == "audited_structural_zero":

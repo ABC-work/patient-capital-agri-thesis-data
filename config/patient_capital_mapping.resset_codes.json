@@ -1,5 +1,7 @@
 {
   "column_map": {
+    "update_date": "update_date",
+    "resset_row_id": "resset_row_id",
     "stock_code": "stock_code",
     "end_date": "end_date",
     "stat_date": "stat_date",
