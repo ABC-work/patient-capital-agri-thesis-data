@@ -23,6 +23,43 @@ ROBUST = {
         "enterprise_annuity_hold_pct_unrestricted_a",
     ],
 }
+ABSENCE_AUDIT = {
+    "insurance_hold_pct_total": (
+        "insurance_hold_shares_total", "insurance_holder_count_total",
+        "all_institution_hold_pct_total",
+    ),
+    "social_security_hold_pct_total": (
+        "social_security_hold_shares_total", "social_security_holder_count_total",
+        "all_institution_hold_pct_total",
+    ),
+    "enterprise_annuity_hold_pct_total": (
+        "enterprise_annuity_hold_shares_total", "enterprise_annuity_holder_count_total",
+        "all_institution_hold_pct_total",
+    ),
+    "insurance_hold_pct_a": (
+        "insurance_hold_shares_a", "insurance_holder_count_a", "all_institution_hold_pct_a",
+    ),
+    "social_security_hold_pct_a": (
+        "social_security_hold_shares_a", "social_security_holder_count_a",
+        "all_institution_hold_pct_a",
+    ),
+    "enterprise_annuity_hold_pct_a": (
+        "enterprise_annuity_hold_shares_a", "enterprise_annuity_holder_count_a",
+        "all_institution_hold_pct_a",
+    ),
+    "insurance_hold_pct_unrestricted_a": (
+        "insurance_hold_shares_unrestricted_a", "insurance_holder_count_unrestricted_a",
+        "all_institution_hold_pct_unrestricted_a",
+    ),
+    "social_security_hold_pct_unrestricted_a": (
+        "social_security_hold_shares_unrestricted_a", "social_security_holder_count_unrestricted_a",
+        "all_institution_hold_pct_unrestricted_a",
+    ),
+    "enterprise_annuity_hold_pct_unrestricted_a": (
+        "enterprise_annuity_hold_shares_unrestricted_a", "enterprise_annuity_holder_count_unrestricted_a",
+        "all_institution_hold_pct_unrestricted_a",
+    ),
+}
 
 
 def read_table(path):
@@ -42,8 +79,9 @@ def main():
     unit = cfg.get("ratio_unit")
     if unit not in {"percent", "fraction"}:
         raise ValueError("ratio_unit 必须由人工核实后明确写为 percent 或 fraction")
-    if cfg.get("missing_component_policy") != "propagate":
-        raise ValueError("基准口径禁止把机构分类缺失自动改成0")
+    missing_policy = cfg.get("missing_component_policy")
+    if missing_policy not in {"propagate", "audited_structural_zero"}:
+        raise ValueError("missing_component_policy须为propagate或audited_structural_zero")
 
     raw = read_table(args.input)
     mapping = cfg.get("column_map", {})
@@ -71,6 +109,14 @@ def main():
         if ((df[col].dropna() < 0) | (df[col].dropna() > 1)).any():
             raise ValueError(f"{col} 转为小数后超出[0,1]，请复核单位或字段")
 
+    if missing_policy == "audited_structural_zero":
+        diagnostic_cols = sorted({x for c in ratio_cols for x in ABSENCE_AUDIT[c]})
+        missing_diagnostics = sorted(set(diagnostic_cols) - set(df.columns))
+        if missing_diagnostics:
+            raise KeyError(f"结构性零值判断缺少审计字段: {missing_diagnostics}")
+        for col in diagnostic_cols:
+            df[col] = pd.to_numeric(df[col], errors="raise")
+
     key = ["stock_code", "year"]
     if df.duplicated(key).any():
         if cfg.get("duplicate_policy") != "latest_stat_date" or "stat_date" not in df:
@@ -78,11 +124,24 @@ def main():
         df["stat_date"] = pd.to_datetime(df["stat_date"], errors="raise")
         df = df.sort_values("stat_date").drop_duplicates(key, keep="last")
 
+    structural_flags = []
+    if missing_policy == "audited_structural_zero":
+        for ratio in ratio_cols:
+            shares, count, institutional_total = ABSENCE_AUDIT[ratio]
+            signature = df[[ratio, shares, count]].notna().sum(axis=1)
+            if signature.isin([1, 2]).any():
+                bad = int(signature.isin([1, 2]).sum())
+                raise ValueError(f"{ratio}有{bad}条比例/持股数/机构数不一致，禁止自动补0")
+            flag = f"{ratio}_structural_zero"
+            df[flag] = signature.eq(0) & df[institutional_total].notna()
+            df.loc[df[flag], ratio] = 0.0
+            structural_flags.append(flag)
+
     df["patient_capital_total"] = df[BASE].sum(axis=1, min_count=len(BASE))
     for out, cols in ROBUST.items():
         if set(cols).issubset(df.columns):
             df[out] = df[cols].sum(axis=1, min_count=len(cols))
-    keep = key + [c for c in [*BASE, "patient_capital_total", *ROBUST] if c in df]
+    keep = key + [c for c in [*BASE, "patient_capital_total", *ROBUST, *structural_flags] if c in df]
     out = df[keep].sort_values(key)
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(args.output, index=False, encoding="utf-8-sig")
